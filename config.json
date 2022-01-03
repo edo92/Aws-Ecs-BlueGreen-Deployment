@@ -1,0 +1,21 @@
+{
+   "resource_names": {
+      "applicationName": "demo-app",
+      "clusterName": "Ecs_Cluster",
+      "familyName": "demo-app"
+   },
+
+   "project_source": {
+      "branch": "main",
+      "owner": "edo92",
+      "repo": "Simple-Express-Server",
+      "secretToken": "demoapp/gitSourcetoken"
+   },
+
+   "cdk_source": {
+      "branch": "main",
+      "owner": "edo92",
+      "repo": "Aws-Ecs-BlueGreen-Deployment",
+      "secretToken": "demoapp/gitSourcetoken"
+   }
+}

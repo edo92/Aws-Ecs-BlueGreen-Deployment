@@ -24,6 +24,7 @@ export interface EcsServiceProps {
 }
 
 export class EcsService extends cdk.Construct {
+   public readonly applicationName: string;
    public readonly listeners: Listeners;
    public readonly targetGroups: TargetGroups;
 
@@ -33,6 +34,7 @@ export class EcsService extends cdk.Construct {
 
    constructor(scope: cdk.Construct, id: string, props: EcsServiceProps) {
       super(scope, id);
+      this.applicationName = props.names.applicationName;
 
       /**
        *
@@ -65,7 +67,7 @@ export class EcsService extends cdk.Construct {
        * Task Containers
        */
       const container = new TaskContainer(this, "Task-Containers", {
-         appName: props.names.applicationName,
+         appName: this.applicationName,
       });
 
       /**
@@ -73,8 +75,8 @@ export class EcsService extends cdk.Construct {
        * Ecs Task Definition
        */
       this.taskDef = new TaskDef(this, "Ecs-TaskDef", {
+         appName: this.applicationName,
          familyName: props.names.familyName,
-         appName: props.names.applicationName,
          taskContainers: container.allContainers,
       });
 
@@ -85,7 +87,7 @@ export class EcsService extends cdk.Construct {
       this.service = new Service(this, "Ecs-Service", {
          cluster: this.cluster,
          taskDefinition: this.taskDef,
-         serviceName: props.names.applicationName,
+         serviceName: this.applicationName,
       });
 
       /**

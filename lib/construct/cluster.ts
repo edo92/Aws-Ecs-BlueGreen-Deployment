@@ -35,8 +35,8 @@ export class Cluster extends ecs.Cluster {
          },
       });
 
-      // if (props.capacityProvider) {
-      //    this.addAsgCapacityProvider(props.capacityProvider);
-      // }
+      if (props.capacityProvider) {
+         this.addAsgCapacityProvider(props.capacityProvider);
+      }
    }
 }

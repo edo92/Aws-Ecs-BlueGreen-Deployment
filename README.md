@@ -91,3 +91,21 @@ Aws elastic container service with blue/green deployment.
 </br>
 
 ---
+
+### :warning: &nbsp; Issues
+
+</br>
+
+#### Initial deployment
+
+> &nbsp; **On Initial Deployment**: Cdk pipeline will fail to prevent repeate deployment
+
+</br>
+
+#### Import alias path not found
+
+```sh
+   alias cdk="npx aws-cdk"
+```
+
+</br>

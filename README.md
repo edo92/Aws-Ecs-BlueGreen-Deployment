@@ -43,3 +43,33 @@ Aws elastic container service with blue/green deployment.
 ```
 
 </br>
+
+### ⚙️ &nbsp; Configuration
+
+> #### <i class="fa fa-gear fa-spin fa-2x" style="color: firebrick"></i> **_Configure credentials in config.json_**
+
+```json
+    "settings": {
+      "applicationName": "<App Name>",
+      "familyName": "<Family Name>",
+      "clusterName": "<Cluster Name>"
+    },
+
+    // React app source code
+   "project_source": {
+      "branch": "main",
+      "owner": "<OWNER>",
+      "repo": "<REPO>",
+      "secretToken": "<setup in next step>",
+    },
+
+    // Cdk infrastructure code
+   "cdk_source": {
+      "branch": "main",
+      "owner": "<OWNER>",
+      "repo": "<REPO>",
+      "secretToken": "<setup in next step>",
+    }
+```
+
+</br>

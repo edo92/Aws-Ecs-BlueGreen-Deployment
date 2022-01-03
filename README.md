@@ -15,3 +15,19 @@ Aws elastic container service with blue/green deployment.
 
 -  [Basic Node Applicaton](https://github.com/edo92/Simple-Express-Server)
 -  [Cloud Infrastructure](https://github.com/edo92/Aws-Ecs-BlueGreen-Deployment)
+
+### :key: &nbsp; Github Oauth Token
+
+> #### <i class="fa fa-gear fa-spin fa-2x" style="color: firebrick"></i> **_Create secret manager for github token_**
+
+```sh
+   aws secretsmanager create-secret --name demoapp/gitSourcetoken --secret-string <GITHUB_TOKEN>
+```
+
+> Or
+
+```sh
+   aws secretsmanager update-secret --secret-id demoapp/gitSourcetoken --secret-string <GITHUB_TOKEN>
+```
+
+</br>

@@ -1,8 +1,8 @@
 {
    "resource_names": {
       "applicationName": "demo-app",
-      "familyName": "demo-app",
-      "ecsClusterName": "Ecs_Cluster"
+      "clusterName": "Ecs_Cluster",
+      "familyName": "demo-app"
    },
 
    "project_source": {

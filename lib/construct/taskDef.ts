@@ -2,19 +2,18 @@ import * as cdk from "@aws-cdk/core";
 import * as iam from "@aws-cdk/aws-iam";
 import * as ecs from "@aws-cdk/aws-ecs";
 import * as logs from "@aws-cdk/aws-logs";
-import { ContainerImage } from "@construct/containerImage";
+import { IContainer } from "@construct/container";
 
-interface TaskRoles {
-   taskRole: iam.Role;
-   executionRole: iam.Role;
-}
-
-export interface TaskDefProps extends TaskRoles {
+interface Names {
    appName: string;
    familyName: string;
 }
 
-export class EcsTaskRole extends iam.Role {
+export interface TaskDefProps extends Names {
+   taskContainers: IContainer[];
+}
+
+export class TaskDefRole extends iam.Role {
    constructor(scope: cdk.Construct, id: string) {
       super(scope, id, {
          assumedBy: new iam.ServicePrincipal("ecs-tasks.amazonaws.com"),
@@ -28,38 +27,52 @@ export class EcsTaskRole extends iam.Role {
 
 export class TaskDef extends ecs.Ec2TaskDefinition {
    constructor(scope: cdk.Construct, id: string, props: TaskDefProps) {
+      /**
+       *
+       * Task Role
+       */
+      const taskDefRole = new TaskDefRole(scope, "Ecs-TaskRole");
+
+      /**
+       *
+       * Taskdef instance
+       */
       super(scope, id, {
          family: props.familyName,
-         taskRole: props.taskRole,
-         executionRole: props.taskRole,
+         taskRole: taskDefRole,
+         executionRole: taskDefRole,
       });
 
-      const containerImage = new ContainerImage(scope, id, {
-         repoName: "backend",
-         tagName: "latest",
-      });
-
+      /**
+       *
+       * Taskdef log group
+       */
       const containerLogs = new logs.LogGroup(this, "Container-LogGroup", {
          logGroupName: `ecs/${props.appName}`,
          removalPolicy: cdk.RemovalPolicy.DESTROY,
       });
 
-      const logDriver = new ecs.AwsLogDriver({
-         logGroup: containerLogs,
-         streamPrefix: "Containername",
-      });
+      /**
+       *
+       * Add containers
+       */
 
-      const container = this.addContainer("ContainerName", {
-         cpu: 1,
-         memoryLimitMiB: 512,
-         logging: logDriver,
-         image: containerImage.image,
-         containerName: "Containername",
-      });
+      props.taskContainers.forEach((container) => {
+         // Create log fore each container
+         const logDriver = new ecs.AwsLogDriver({
+            logGroup: containerLogs,
+            streamPrefix: container.containerName,
+         });
 
-      container.addPortMappings({
-         containerPort: 80,
-         protocol: ecs.Protocol.TCP,
+         // Add container to task def
+         const taskContainer = this.addContainer(
+            container.containerName,
+            Object.assign(container.containerConfig, {
+               logDriver,
+            })
+         );
+
+         taskContainer.addPortMappings(container.portMapping);
       });
    }
 }

@@ -73,3 +73,21 @@ Aws elastic container service with blue/green deployment.
 ```
 
 </br>
+
+### 🔨 &nbsp; Get Started
+
+-  Install
+
+```js
+   npm install
+```
+
+-  deploy
+
+```js
+   cdk deploy
+```
+
+</br>
+
+---

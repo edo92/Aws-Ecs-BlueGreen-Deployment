@@ -31,3 +31,15 @@ Aws elastic container service with blue/green deployment.
 ```
 
 </br>
+
+### 📜 &nbsp; Aws Credentials
+
+> #### <i class="fa fa-gear fa-spin fa-2x" style="color: firebrick"></i> **_Export local environmental variables_**
+
+```sh
+   export AWS_ACCESS_KEY_ID=<XXXX>
+   export AWS_SECRET_ACCESS_KEY=<XXXX>
+   export AWS_DEFAULT_REGION=<XXXX>
+```
+
+</br>

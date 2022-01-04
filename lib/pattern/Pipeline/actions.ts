@@ -1,3 +1,4 @@
+import * as types from "@types";
 import * as cdk from "@aws-cdk/core";
 import * as codebuild from "@aws-cdk/aws-codebuild";
 import * as codedeploy from "@aws-cdk/aws-codedeploy";
@@ -6,7 +7,7 @@ import * as pipelineActions from "@aws-cdk/aws-codepipeline-actions";
 import { PolicyStatement } from "@aws-cdk/aws-iam";
 
 export interface PipelineActionsProps {
-   github: IGithub;
+   github: types.IGithub;
    project: codebuild.PipelineProject;
    deploymentGroup: codedeploy.IEcsDeploymentGroup;
 }

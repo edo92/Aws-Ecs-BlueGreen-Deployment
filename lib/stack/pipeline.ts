@@ -1,13 +1,14 @@
+import * as types from "types";
 import * as cdk from "@aws-cdk/core";
 import { Deployment } from "@pattern/CodeDeploy";
 import { ProjectPipeline } from "@pattern/Pipeline";
 import { IEcsService } from "@pattern/EcsService";
 
 interface PipelineProps {
-   names: INames;
    region: string;
    account: string;
-   github: IGithub;
+   names: types.INames;
+   github: types.IGithub;
    service: IEcsService;
 }
 

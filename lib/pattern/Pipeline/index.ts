@@ -1,3 +1,4 @@
+import * as types from "types";
 import * as cdk from "@aws-cdk/core";
 import * as codedeploy from "@aws-cdk/aws-codedeploy";
 import * as codepipeline from "@aws-cdk/aws-codepipeline";
@@ -14,7 +15,7 @@ interface ResourceNames {
 interface PipelineProps extends ResourceNames, IVariables {
    region: string;
    account: string;
-   github: IGithub;
+   github: types.IGithub;
    taskContainers: ITaskContainers[];
 }
 

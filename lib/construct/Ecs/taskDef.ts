@@ -4,12 +4,9 @@ import * as ecs from "@aws-cdk/aws-ecs";
 import * as logs from "@aws-cdk/aws-logs";
 import { IContainer } from "@construct/Ecs/container";
 
-interface Names {
+export interface TaskDefProps {
    appName: string;
    familyName: string;
-}
-
-export interface TaskDefProps extends Names {
    taskContainers: IContainer[];
 }
 

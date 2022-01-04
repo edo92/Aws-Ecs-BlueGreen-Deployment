@@ -1,3 +1,4 @@
+import * as types from "@types";
 import * as cdk from "@aws-cdk/core";
 import * as ec2 from "@aws-cdk/aws-ec2";
 import * as ecs from "@aws-cdk/aws-ecs";
@@ -20,7 +21,7 @@ export interface IEcsService {
 }
 
 export interface EcsServiceProps {
-   readonly names: INames;
+   readonly names: types.INames;
    readonly vpc: ec2.Vpc;
    readonly elb: elb.ApplicationLoadBalancer;
 }

@@ -2,7 +2,7 @@ import * as cdk from "@aws-cdk/core";
 import * as iam from "@aws-cdk/aws-iam";
 import * as ecs from "@aws-cdk/aws-ecs";
 import * as logs from "@aws-cdk/aws-logs";
-import { IContainer } from "@construct/container";
+import { IContainer } from "@construct/Ecs/container";
 
 interface Names {
    appName: string;
@@ -26,6 +26,8 @@ export class TaskDefRole extends iam.Role {
 }
 
 export class TaskDef extends ecs.Ec2TaskDefinition {
+   public readonly taskContainers: IContainer[];
+
    constructor(scope: cdk.Construct, id: string, props: TaskDefProps) {
       /**
        *
@@ -54,10 +56,19 @@ export class TaskDef extends ecs.Ec2TaskDefinition {
 
       /**
        *
-       * Add containers
+       * Register all containers
        */
+      this.registerContainers(containerLogs);
 
-      props.taskContainers.forEach((container) => {
+      /**
+       *
+       * Make task containers readable
+       */
+      this.taskContainers = props.taskContainers;
+   }
+
+   private registerContainers(containerLogs: logs.LogGroup): void {
+      this.taskContainers.forEach((container) => {
          // Create log fore each container
          const logDriver = new ecs.AwsLogDriver({
             logGroup: containerLogs,

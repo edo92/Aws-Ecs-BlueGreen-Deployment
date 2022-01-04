@@ -2,6 +2,7 @@ import * as config from "@config";
 import * as cdk from "@aws-cdk/core";
 import { Resources } from "@pattern/Resources";
 import { EcsService } from "@pattern/EcsService";
+import { CdkPipeline } from "@pattern/CdkPipeline";
 import { Pipeline } from "./pipeline";
 
 export class Infrastructure extends cdk.Stack {
@@ -26,7 +27,15 @@ export class Infrastructure extends cdk.Stack {
 
       /**
        *
-       * Pipeline
+       * Cdk Pipeline
+       */
+      new CdkPipeline(this, "Cdk-Pipeline", {
+         github: config.cdk_source,
+      });
+
+      /**
+       *
+       * Project Pipeline
        */
       new Pipeline(this, "Service-Pipeline", {
          region: this.region,

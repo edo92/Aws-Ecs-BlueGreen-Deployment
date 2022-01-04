@@ -56,15 +56,15 @@ export class TaskDef extends ecs.Ec2TaskDefinition {
 
       /**
        *
-       * Register all containers
-       */
-      this.registerContainers(containerLogs);
-
-      /**
-       *
        * Make task containers readable
        */
       this.taskContainers = props.taskContainers;
+
+      /**
+       *
+       * Register all containers
+       */
+      this.registerContainers(containerLogs);
    }
 
    private registerContainers(containerLogs: logs.LogGroup): void {

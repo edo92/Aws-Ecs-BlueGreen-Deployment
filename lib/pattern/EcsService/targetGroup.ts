@@ -1,7 +1,7 @@
 import * as cdk from "@aws-cdk/core";
 import * as ec2 from "@aws-cdk/aws-ec2";
 import * as elb from "@aws-cdk/aws-elasticloadbalancingv2";
-import { TargetGroup } from "@construct/targetGroup";
+import { TargetGroup } from "@construct/Ecs/targetGroup";
 
 export interface TargetGroupsProps {
    vpc: ec2.Vpc;

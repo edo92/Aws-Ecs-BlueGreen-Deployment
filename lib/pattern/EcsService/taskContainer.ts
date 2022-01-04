@@ -1,5 +1,5 @@
 import * as cdk from "@aws-cdk/core";
-import { Container, IContainer } from "@construct/container";
+import { Container, IContainer } from "@construct/Ecs/container";
 
 export interface ContainerProps {
    appName: string;

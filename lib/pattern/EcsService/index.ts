@@ -3,34 +3,36 @@ import * as ec2 from "@aws-cdk/aws-ec2";
 import * as ecs from "@aws-cdk/aws-ecs";
 import * as elb from "@aws-cdk/aws-elasticloadbalancingv2";
 
-import { Cluster } from "@construct/cluster";
-import { Service } from "@construct/service";
-import { TaskDef } from "@construct/taskDef";
+import { Cluster } from "@construct/Ecs/cluster";
+import { Service } from "@construct/Ecs/service";
+import { TaskDef } from "@construct/Ecs/taskDef";
 
 import { Listeners } from "./listeners";
 import { TargetGroups } from "./targetGroup";
 import { TaskContainer } from "./taskContainer";
 
-interface ResourceNames {
-   familyName: string;
-   clusterName: string;
-   applicationName: string;
+export interface IEcsService {
+   readonly listeners: Listeners;
+   readonly targetGroups: TargetGroups;
+   readonly cluster: ecs.Cluster;
+   readonly service: ecs.Ec2Service;
+   readonly taskDef: TaskDef;
 }
 
 export interface EcsServiceProps {
-   names: ResourceNames;
-   vpc: ec2.Vpc;
-   elb: elb.ApplicationLoadBalancer;
+   readonly names: INames;
+   readonly vpc: ec2.Vpc;
+   readonly elb: elb.ApplicationLoadBalancer;
 }
 
-export class EcsService extends cdk.Construct {
+export class EcsService extends cdk.Construct implements IEcsService {
    public readonly applicationName: string;
    public readonly listeners: Listeners;
    public readonly targetGroups: TargetGroups;
 
    public readonly cluster: ecs.Cluster;
    public readonly service: ecs.Ec2Service;
-   public readonly taskDef: ecs.Ec2TaskDefinition;
+   public readonly taskDef: TaskDef;
 
    constructor(scope: cdk.Construct, id: string, props: EcsServiceProps) {
       super(scope, id);
